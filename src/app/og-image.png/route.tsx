@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 15;
 
@@ -41,33 +41,19 @@ export async function GET() {
         />
 
         {/* Corner seals */}
-        {[
-          { top: 40, left: 40, char: '縁' },
-          { top: 40, right: 40, char: '運' },
-          { bottom: 40, left: 40, char: '福' },
-          { bottom: 40, right: 40, char: '吉' },
-        ].map((s, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              top: s.top,
-              bottom: s.bottom,
-              left: s.left,
-              right: s.right,
-              width: 80,
-              height: 80,
-              borderRadius: '50%',
-              border: '3px solid rgba(200,16,46,0.3)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              opacity: 0.35,
-            }}
-          >
-            <div style={{ fontSize: 36, color: '#C8102E', fontWeight: 700 }}>{s.char}</div>
-          </div>
-        ))}
+        {/* Corner seals */}
+        <div style={{ position: 'absolute', top: 40, left: 40, width: 80, height: 80, borderRadius: '50%', border: '3px solid rgba(200,16,46,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.35 }}>
+          <div style={{ fontSize: 36, color: '#C8102E', fontWeight: 700 }}>縁</div>
+        </div>
+        <div style={{ position: 'absolute', top: 40, right: 40, width: 80, height: 80, borderRadius: '50%', border: '3px solid rgba(200,16,46,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.35 }}>
+          <div style={{ fontSize: 36, color: '#C8102E', fontWeight: 700 }}>運</div>
+        </div>
+        <div style={{ position: 'absolute', bottom: 40, left: 40, width: 80, height: 80, borderRadius: '50%', border: '3px solid rgba(200,16,46,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.35 }}>
+          <div style={{ fontSize: 36, color: '#C8102E', fontWeight: 700 }}>福</div>
+        </div>
+        <div style={{ position: 'absolute', bottom: 40, right: 40, width: 80, height: 80, borderRadius: '50%', border: '3px solid rgba(200,16,46,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.35 }}>
+          <div style={{ fontSize: 36, color: '#C8102E', fontWeight: 700 }}>吉</div>
+        </div>
 
         {/* Main content */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 60 }}>
@@ -82,7 +68,7 @@ export async function GET() {
               alignItems: 'center',
               justifyContent: 'center',
               background: '#FEFAF2',
-              boxShadow: '0 12px 48px rgba(200,16,46,0.3)',
+
               flexShrink: 0,
             }}
           >
