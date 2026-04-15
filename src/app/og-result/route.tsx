@@ -30,10 +30,8 @@ export async function GET(req: NextRequest) {
   const color    = GRADE_COLORS[grade] ?? '#C8102E';
   const sealBg   = GRADE_BG[grade]    ?? '#FFF5F5';
 
-  // Show only first character large inside the circle; full grade below
-  const firstChar = grade.charAt(0);
-  // Font size for full grade name (1 char = 56px, 2 chars = 52px)
-  const gradeFontSize = grade.length === 1 ? 56 : 52;
+  // Font size inside circle: 1 char = 150px, 2 chars = 100px each (stacked vertically)
+  const circleFontSize = grade.length === 1 ? 150 : 100;
 
   // Truncate headline to ~60 chars to avoid overflow
   const shortHeadline = headline.length > 62 ? `${headline.slice(0, 60)}...` : headline;
@@ -102,40 +100,33 @@ export async function GET(req: NextRequest) {
                 border: `2px dashed ${color}35`,
                 display: 'flex',
               }} />
-              {/* First character — always 1 char, never wraps */}
-              <div style={{
-                fontSize: 128,
-                fontWeight: 700,
-                color,
-                lineHeight: 1,
-                display: 'flex',
-              }}>
-                {firstChar}
-              </div>
-            </div>
-
-            {/* Full grade name below the circle — each char in its own div to prevent Satori CJK wrap */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <div style={{ fontSize: gradeFontSize, fontWeight: 700, color, letterSpacing: '0.12em', lineHeight: 1, display: 'flex' }}>
-                  {grade.charAt(0)}
+              {/* Grade chars stacked vertically inside circle — each char in its own div */}
+              {grade.length === 1 ? (
+                <div style={{ fontSize: circleFontSize, fontWeight: 700, color, lineHeight: 1, display: 'flex' }}>
+                  {grade}
                 </div>
-                {grade.length > 1 && (
-                  <div style={{ fontSize: gradeFontSize, fontWeight: 700, color, letterSpacing: '0.12em', lineHeight: 1, display: 'flex' }}>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
+                  <div style={{ fontSize: circleFontSize, fontWeight: 700, color, lineHeight: 1, display: 'flex' }}>
+                    {grade.charAt(0)}
+                  </div>
+                  <div style={{ fontSize: circleFontSize, fontWeight: 700, color, lineHeight: 1, display: 'flex' }}>
                     {grade.charAt(1)}
                   </div>
-                )}
-              </div>
-              <div style={{
-                fontSize: 18,
-                color,
-                letterSpacing: '0.22em',
-                opacity: 0.75,
-                display: 'flex',
-                whiteSpace: 'nowrap',
-              }}>
-                {gradeEn}
-              </div>
+                </div>
+              )}
+            </div>
+
+            {/* Grade English label below circle */}
+            <div style={{
+              fontSize: 18,
+              color,
+              letterSpacing: '0.22em',
+              opacity: 0.75,
+              display: 'flex',
+              whiteSpace: 'nowrap',
+            }}>
+              {gradeEn}
             </div>
           </div>
 
