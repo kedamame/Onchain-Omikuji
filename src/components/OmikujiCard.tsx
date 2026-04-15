@@ -37,8 +37,13 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
 
   const handleShare = () => {
     if (!fortune) return;
+    const shareUrl =
+      `${appUrl}/share` +
+      `?grade=${encodeURIComponent(fortune.grade)}` +
+      `&gradeEn=${encodeURIComponent(fortune.gradeEn)}` +
+      `&headline=${encodeURIComponent(fortune.headline)}`;
     const text = `My onchain fortune is "${fortune.grade}" (${fortune.gradeEn})!\n${fortune.headline}\n\n#OnchainOmikuji #Base`;
-    shareToFarcaster(text, appUrl, isInMiniApp);
+    shareToFarcaster(text, shareUrl, isInMiniApp);
   };
 
   const handleReset = () => {
