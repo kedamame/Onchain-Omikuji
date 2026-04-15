@@ -82,6 +82,10 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
         <p className="font-mincho text-ink/60 text-sm text-center">
           Ready? Draw your omikuji.
         </p>
+        <p className="font-gothic text-ink/35 text-xs text-center">
+          Your fortune is drawn once per day.<br />
+          It renews at midnight (JST).
+        </p>
         <button
           onClick={runFortune}
           className="
@@ -326,6 +330,9 @@ function FortuneReveal({ fortune, phase, onShare, onReset, onDisconnect, address
           >
             Draw Again
           </button>
+          <p className="font-gothic text-ink/25 text-xs text-center pt-1">
+            Fortune renews daily at midnight (JST)
+          </p>
           <button
             onClick={onDisconnect}
             className="font-gothic text-ink/30 text-xs hover:text-ink/50 transition-colors text-center"
