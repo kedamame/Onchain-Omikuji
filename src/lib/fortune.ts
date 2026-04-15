@@ -9,6 +9,7 @@ export interface FortuneResult {
   bgColor: string;
   headline: string;
   body: string;
+  msgIdx: number;
   details: FortuneDetail[];
   score: number;
 }
@@ -32,10 +33,10 @@ const GRADE_CONFIG: Record<FortuneGrade, { gradeEn: string; color: string; bgCol
 const HEADLINES: Record<FortuneGrade, string[]> = {
   大吉: [
     'The onchain gods smile upon you. Great fortune descends.',
-    'Vibrant soul — on the land of Base, your fate shines brilliantly.',
+    'Vibrant soul  -  on the land of Base, your fate shines brilliantly.',
     'The stars of the blockchain align. This is your season of triumph.',
     'Fortune overflows from every block. You are blessed beyond measure.',
-    'A warrior of the chain — your record speaks of destiny fulfilled.',
+    'A warrior of the chain  -  your record speaks of destiny fulfilled.',
     'The ancient ledger sings your name. Great luck has chosen you.',
     'Roots run deep, branches reach high. Your onchain tree bears the finest fruit.',
     'Heaven and chain move as one. This is the moment of your flourishing.',
@@ -45,7 +46,7 @@ const HEADLINES: Record<FortuneGrade, string[]> = {
     'Each transaction laid with care lights the path to good fortune.',
     'The tide is with you. Sail forward without hesitation.',
     'Good fortune follows those who show up consistently.',
-    'Your wallet tells a story of quiet discipline — and luck rewards it.',
+    'Your wallet tells a story of quiet discipline  -  and luck rewards it.',
     'The path is clear, the wind is kind. Press on.',
     'A merchant who moves with patience always finds the best trade.',
     'Fortune flows where intention meets action. You have found that current.',
@@ -53,7 +54,7 @@ const HEADLINES: Record<FortuneGrade, string[]> = {
   中吉: [
     'A calm tide. Yet one bold step forward reveals the light.',
     'In quiet waves, the seeds of opportunity are growing.',
-    'Neither storm nor drought — a season of steady promise.',
+    'Neither storm nor drought  -  a season of steady promise.',
     'The middle path holds hidden wisdom. Walk it with courage.',
     'Good fortune is within reach. Stretch a little further.',
     'The chrysanthemum blooms in its own time. Yours is nearly here.',
@@ -65,70 +66,70 @@ const HEADLINES: Record<FortuneGrade, string[]> = {
     'A season of sprouting. Lay your roots patiently.',
     'The bamboo bends, but does not break. Small luck is still luck.',
     'Every great builder began with a single block. You have begun.',
-    'Fortune smiles quietly from a distance — invite it closer.',
+    'Fortune smiles quietly from a distance  -  invite it closer.',
     'A small candle still drives away the dark. Your light is growing.',
     'The seed is planted. Water it with curiosity and watch what grows.',
     'Modest beginnings harbor extraordinary ends. Trust the process.',
   ],
   末吉: [
     'Now is the time to sow. A great bloom awaits.',
-    'Fortune that broadens with time — the upward turn begins here.',
+    'Fortune that broadens with time  -  the upward turn begins here.',
     'The road ahead is longer than the road behind. Set forth.',
     'A winter always precedes a spring. Your thaw is coming.',
     'The first star of evening is not the last. Better fortune is rising.',
     'Potential sleeps within you like an ember. One breath can ignite it.',
     'The journey of a thousand blocks begins with a single transaction.',
-    'Luck is not absent — it is merely waiting for you to knock.',
+    'Luck is not absent  -  it is merely waiting for you to knock.',
   ],
   凶: [
     'The calm before the storm. Yet a turning point will surely come.',
     'Gather your inner strength now. The next wave is on its way.',
     'Even the lowest tide reveals ground on which to stand and rebuild.',
     'The mountain looks tallest before you begin to climb.',
-    'Silence on the chain is not failure — it is the pause before the leap.',
+    'Silence on the chain is not failure  -  it is the pause before the leap.',
     'From stillness, the greatest movements are born. Your time is near.',
     'The fortune wheel turns without ceasing. Down today, up tomorrow.',
     'Even in shadow, the roots of a great tree are quietly growing.',
   ],
 };
 
-const BODIES: Record<FortuneGrade, string[]> = {
+export const BODIES: Record<FortuneGrade, string[]> = {
   大吉: [
     'Your onchain activity is remarkably vibrant. Deeply engaged with many contracts, you are rooted in the Base ecosystem. Keep this momentum and further growth is all but certain.',
     'The energy in your wallet calls in great luck. Consistent action and rich experience have guided you to the highest fortune.',
     'Few wallets tell a story as vivid as yours. Your history on Base radiates intention, diversity, and commitment. The chain knows who its veterans are.',
-    'You have touched many contracts, crossed many protocols, and kept your streak alive. This is not luck — this is the reward for showing up, day after day.',
+    'You have touched many contracts, crossed many protocols, and kept your streak alive. This is not luck  -  this is the reward for showing up, day after day.',
     'An elder of the Base chain. Your experience is etched into the ledger forever, and fortune acknowledges the depth of your journey.',
-    'Great luck does not fall from the sky — it is mined by those who act. Your recent transactions prove you are exactly that kind of builder.',
+    'Great luck does not fall from the sky  -  it is mined by those who act. Your recent transactions prove you are exactly that kind of builder.',
     'The balance of your wallet reflects the balance of your spirit. You have cultivated something rare: consistency in a world of noise.',
     'Like a temple that has stood through every season, your wallet endures. The gods of the chain reward such steadfastness with the highest blessing.',
   ],
   吉: [
     'A well-balanced onchain presence brings stable fortune. Your steady accumulation is the foundation of genuine luck.',
     'Moderate activity and a solid track record are drawing good fortune toward you. Maintain this pace for continued progress.',
-    'Not too hasty, not too still — your rhythm on Base is exactly right. Good fortune recognizes balance and chooses to dwell near it.',
+    'Not too hasty, not too still  -  your rhythm on Base is exactly right. Good fortune recognizes balance and chooses to dwell near it.',
     'Your transactions speak of thoughtfulness. You do not chase every trend, but you are never absent when it matters. This wisdom invites good luck.',
     'The ledger of your recent activity is clean and purposeful. Fortune favors the prepared, and you have prepared well.',
     'Good luck arrives for those who are present. Your consistent engagement with Base marks you as someone the chain can rely on.',
-    'Like a well-tended garden, your wallet shows signs of careful cultivation. The harvest will be good — perhaps even great.',
+    'Like a well-tended garden, your wallet shows signs of careful cultivation. The harvest will be good  -  perhaps even great.',
     'Your onchain story is one of discipline and curiosity in harmony. That is a rare combination, and fortune takes notice of rare things.',
   ],
   中吉: [
     'Modest onchain activity is visible. Engaging with a broader range of contracts will lift your fortune further.',
-    'A mid-range level of activity points to mild luck. Face new challenges without fear — bold moves will prove fortunate.',
+    'A mid-range level of activity points to mild luck. Face new challenges without fear  -  bold moves will prove fortunate.',
     'Your wallet shows promise, like a river that has not yet found its full course. A little more exploration will reveal the way.',
     'The foundation is here. What you have built on Base is solid, but the upper floors are waiting. Fortune is the reward for those who keep building.',
     'You have taken meaningful steps on the chain, yet there is clearly more ahead. The next move you make may well be the defining one.',
     'Mild luck does not mean small luck. It means that fortune is watching carefully, weighing your next decision. Choose boldly.',
-    'Your activity suggests a thoughtful traveler who has not yet reached the destination. Press onward — the view from the summit is worth it.',
+    'Your activity suggests a thoughtful traveler who has not yet reached the destination. Press onward  -  the view from the summit is worth it.',
     'Between the spark and the flame lies patience. Your recent onchain moves hint at a fire that is still gathering strength.',
   ],
   小吉: [
-    'Your onchain journey is unhurried, yet steadily moving forward. Continue at your own pace — patience is your strength.',
+    'Your onchain journey is unhurried, yet steadily moving forward. Continue at your own pace  -  patience is your strength.',
     'There is plenty of room to grow. Exploring new protocols and features will turn your fortune upward.',
-    'Small luck is a quiet gift. It asks only that you continue — one transaction at a time, one day at a time.',
+    'Small luck is a quiet gift. It asks only that you continue  -  one transaction at a time, one day at a time.',
     'The chain has noticed you, even if just barely. That noticing is the beginning of something. Do not disappear.',
-    'Your wallet is a young tree in an old forest. Give it sunlight — more interactions, more curiosity — and it will grow tall.',
+    'Your wallet is a young tree in an old forest. Give it sunlight  -  more interactions, more curiosity  -  and it will grow tall.',
     'Fortune has left a small flame at your door. Do not let it go out. Each new interaction feeds it a little more.',
     'The first steps of any great journey are often the smallest. What matters is that you have started. Keep walking.',
     'A small harvest this season, but the soil is good. With a bit more tending, the next season can be abundant.',
@@ -136,20 +137,20 @@ const BODIES: Record<FortuneGrade, string[]> = {
   末吉: [
     'Activity is light, but the real chapter is just beginning. Believe in the broadening fortune and advance one step at a time.',
     'The time has come to wake your wallet. Starting with a single small action sets destiny in motion.',
-    'Future luck is still luck — and it is yours to claim. The chain is patient. It will wait for you to return.',
+    'Future luck is still luck  -  and it is yours to claim. The chain is patient. It will wait for you to return.',
     'Your wallet rests at the threshold between absence and presence. One meaningful step will shift everything.',
-    'The omikuji sees potential in you that your recent activity has not yet shown. There is a spark here — fan it.',
+    'The omikuji sees potential in you that your recent activity has not yet shown. There is a spark here  -  fan it.',
     'Not yet in bloom, but the roots are alive. Fortune deferred is not fortune denied. Your time is simply still ahead.',
     'The tide of the chain has not yet reached you, but it is moving in your direction. Prepare the shore.',
     'Even a dormant volcano holds tremendous power within. What lies sleeping in your wallet may yet reshape the landscape.',
   ],
   凶: [
-    'Onchain activity is scarce. Yet every journey begins somewhere — now is the perfect moment to take your first step.',
+    'Onchain activity is scarce. Yet every journey begins somewhere  -  now is the perfect moment to take your first step.',
     'The current tide is challenging, but there is no need for despair. Entering the onchain world can change your fortune entirely.',
-    'The chain sees an absence where there could be a presence. This is not a verdict — it is an invitation. Come and write your story.',
+    'The chain sees an absence where there could be a presence. This is not a verdict  -  it is an invitation. Come and write your story.',
     'Caution is a wise companion, but even the cautious must move eventually. The best time to begin was yesterday. The next best time is now.',
-    'A blank page frightens no great writer. Your onchain story is waiting to be written — pick up the pen.',
-    'The omikuji draws caution, not condemnation. Fortune has not left you — it has simply not found you yet. Make yourself easier to find.',
+    'A blank page frightens no great writer. Your onchain story is waiting to be written  -  pick up the pen.',
+    'The omikuji draws caution, not condemnation. Fortune has not left you  -  it has simply not found you yet. Make yourself easier to find.',
     'There is no shame in starting from the beginning. Every legend on this chain was once a wallet with zero transactions.',
     'Dark fortune is a map, not a destination. It shows where you are, not where you must stay. The path forward is open.',
   ],
@@ -221,7 +222,7 @@ function clamp(v: number, lo: number, hi: number): number {
  * Convert score (0–100) into probability weights for each grade.
  *
  * Each stat contributes to the score, and the score shifts the
- * entire probability distribution — high scorers skew toward 大吉/吉,
+ * entire probability distribution  -  high scorers skew toward 大吉/吉,
  * low scorers skew toward 凶/末吉.  There is always some chance of
  * any outcome, preserving the spirit of real omikuji.
  *
@@ -280,8 +281,9 @@ export function calculateFortune(stats: WalletStats, address: string): FortuneRe
   const grade = gradeFromScore(score, seed);
   const config = GRADE_CONFIG[grade];
 
+  const msgIdx  = seed % 8;
   const headline = pick(HEADLINES[grade], seed);
-  const body = pick(BODIES[grade], seed + 1);
+  const body     = pick(BODIES[grade], seed + 1);
 
   const details: FortuneDetail[] = [
     {
@@ -314,7 +316,7 @@ export function calculateFortune(stats: WalletStats, address: string): FortuneRe
     },
     {
       label: 'Success Rate',
-      value: stats.txCount === 0 ? '—' : `${Math.round((1 - stats.errorRate) * 100)}%`,
+      value: stats.txCount === 0 ? ' - ' : `${Math.round((1 - stats.errorRate) * 100)}%`,
       icon: '🎑',
       good: stats.errorRate < 0.1,
     },
@@ -327,6 +329,7 @@ export function calculateFortune(stats: WalletStats, address: string): FortuneRe
     bgColor: config.bgColor,
     headline,
     body,
+    msgIdx,
     details,
     score,
   };

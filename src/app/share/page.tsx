@@ -5,16 +5,16 @@ const APP_URL = (
 ).replace(/\/$/, '');
 
 interface Props {
-  searchParams: { grade?: string; gradeEn?: string; headline?: string; body?: string };
+  searchParams: { grade?: string; gradeEn?: string; headline?: string; msgIdx?: string };
 }
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const grade    = searchParams.grade    || '吉';
   const gradeEn  = searchParams.gradeEn  || 'GOOD LUCK';
   const headline = searchParams.headline || '';
-  const body     = searchParams.body     || '';
+  const msgIdx   = searchParams.msgIdx   || '0';
 
-  const ogImage = `${APP_URL}/og-result?grade=${encodeURIComponent(grade)}&gradeEn=${encodeURIComponent(gradeEn)}&headline=${encodeURIComponent(headline)}&body=${encodeURIComponent(body)}&v=4`;
+  const ogImage = `${APP_URL}/og-result?grade=${encodeURIComponent(grade)}&gradeEn=${encodeURIComponent(gradeEn)}&headline=${encodeURIComponent(headline)}&msgIdx=${msgIdx}&v=5`;
 
   const title       = `${grade} (${gradeEn}) — Onchain Omikuji`;
   const description = headline || `My Base chain fortune is ${grade}! Draw yours on Onchain Omikuji.`;

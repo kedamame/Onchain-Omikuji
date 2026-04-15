@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { type NextRequest } from 'next/server';
+import { BODIES } from '@/lib/fortune';
 
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
@@ -27,16 +28,18 @@ export async function GET(req: NextRequest) {
   const grade    = searchParams.get('grade')    || '吉';
   const gradeEn  = searchParams.get('gradeEn')  || 'GOOD LUCK';
   const headline = searchParams.get('headline') || '';
-  const body     = searchParams.get('body')     || '';
+  const msgIdx   = Math.min(7, Math.max(0, parseInt(searchParams.get('msgIdx') || '0', 10)));
   const color    = GRADE_COLORS[grade] ?? '#C8102E';
   const sealBg   = GRADE_BG[grade]    ?? '#FFF5F5';
 
   // Font size inside circle: 1 char = 150px, 2 chars = 100px each (stacked vertically)
   const circleFontSize = grade.length === 1 ? 150 : 100;
 
-  // Truncate headline to ~50 chars, body to ~80 chars
+  // Truncate headline; look up body from BODIES by grade + msgIdx
   const shortHeadline = headline.length > 52 ? `${headline.slice(0, 50)}...` : headline;
-  const shortBody     = body.length     > 82 ? `${body.slice(0, 80)}...`     : body;
+  const gradeKey = grade as keyof typeof BODIES;
+  const bodyText  = BODIES[gradeKey]?.[(msgIdx + 1) % 8] ?? '';
+  const shortBody = bodyText.length > 82 ? `${bodyText.slice(0, 80)}...` : bodyText;
 
   return new ImageResponse(
     (
