@@ -5,14 +5,15 @@ import { AppProvider } from '@/components/providers/AppProvider';
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://omikuji.vercel.app';
 
 const miniAppEmbed = {
-  version: '1',
+  version: 'next',
   imageUrl: `${APP_URL}/opengraph-image`,
   button: {
     title: 'Draw My Fortune',
     action: {
-      type: 'launch_miniapp',
+      type: 'launch_frame',
       name: 'Onchain Omikuji',
       url: APP_URL,
+      iconUrl: `${APP_URL}/icon.png`,
       splashImageUrl: `${APP_URL}/splash.png`,
       splashBackgroundColor: '#F5EDD8',
     },
