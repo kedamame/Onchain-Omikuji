@@ -3,8 +3,9 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export function GET() {
-  const APP_URL =
-    process.env.NEXT_PUBLIC_APP_URL || 'https://omikuji.vercel.app';
+  const APP_URL = (
+    process.env.NEXT_PUBLIC_APP_URL || 'https://omikuji.vercel.app'
+  ).replace(/\/$/, '');
 
   const manifest = {
     // accountAssociation is required for production store listing.
