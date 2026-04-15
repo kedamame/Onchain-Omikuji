@@ -150,7 +150,7 @@ function AnalyzingScreen() {
           Reading your fortune{dots}
         </p>
         <p className="font-gothic text-ink/40 text-xs">
-          Analyzing Base chain activity
+          Reading your last 100 transactions on Base
         </p>
       </div>
 

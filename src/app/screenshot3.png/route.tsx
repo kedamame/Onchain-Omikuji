@@ -110,36 +110,36 @@ export async function GET() {
             <div style={{ display: 'flex' }}>a true builder of the new world.</div>
           </div>
 
-          {/* Stats grid */}
+          {/* Stats grid — 5 items (no Total Txs) */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
             <div style={{ display: 'flex', gap: 16 }}>
-              <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.05em', display: 'flex' }}>TOTAL TXS</div>
-                <div style={{ fontSize: 48, color: '#1A1434', fontWeight: 700, display: 'flex' }}>847</div>
-              </div>
               <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.05em', display: 'flex' }}>WALLET AGE</div>
                 <div style={{ fontSize: 48, color: '#1A1434', fontWeight: 700, display: 'flex' }}>612d</div>
               </div>
-            </div>
-            <div style={{ display: 'flex', gap: 16 }}>
               <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.05em', display: 'flex' }}>LAST TX</div>
                 <div style={{ fontSize: 48, color: '#1A1434', fontWeight: 700, display: 'flex' }}>Today</div>
               </div>
+            </div>
+            <div style={{ display: 'flex', gap: 16 }}>
               <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.05em', display: 'flex' }}>CONTRACTS</div>
                 <div style={{ fontSize: 48, color: '#1A1434', fontWeight: 700, display: 'flex' }}>94</div>
               </div>
-            </div>
-            <div style={{ display: 'flex', gap: 16 }}>
               <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.05em', display: 'flex' }}>ETH BALANCE</div>
                 <div style={{ fontSize: 48, color: '#1A1434', fontWeight: 700, display: 'flex' }}>2.41 ETH</div>
               </div>
+            </div>
+            <div style={{ display: 'flex', gap: 16 }}>
               <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.05em', display: 'flex' }}>SUCCESS RATE</div>
                 <div style={{ fontSize: 48, color: '#1A1434', fontWeight: 700, display: 'flex' }}>98.2%</div>
+              </div>
+              <div style={{ flex: 1, background: 'rgba(200,16,46,0.05)', border: '2px solid rgba(200,16,46,0.15)', borderRadius: 16, paddingTop: 28, paddingBottom: 28, paddingLeft: 28, paddingRight: 28, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ fontSize: 26, color: 'rgba(26,20,52,0.45)', letterSpacing: '0.03em', display: 'flex' }}>LAST 100 TXS</div>
+                <div style={{ fontSize: 36, color: '#2D6A4F', fontWeight: 700, display: 'flex' }}>Analyzed</div>
               </div>
             </div>
           </div>

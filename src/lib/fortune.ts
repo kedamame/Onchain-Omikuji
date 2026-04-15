@@ -162,12 +162,6 @@ export function calculateFortune(stats: WalletStats, address: string): FortuneRe
 
   const details: FortuneDetail[] = [
     {
-      label: 'Total Txs',
-      value: stats.txCount === 0 ? 'None' : `${stats.txCount} tx`,
-      icon: '⛩',
-      good: stats.txCount > 10,
-    },
-    {
       label: 'Wallet Age',
       value: stats.walletAgeDays === 0 ? 'New' : `${stats.walletAgeDays} days`,
       icon: '🏮',
