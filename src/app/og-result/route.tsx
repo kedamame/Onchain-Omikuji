@@ -123,6 +123,7 @@ export async function GET(req: NextRequest) {
                 letterSpacing: '0.12em',
                 lineHeight: 1,
                 display: 'flex',
+                whiteSpace: 'nowrap',
               }}>
                 {grade}
               </div>
