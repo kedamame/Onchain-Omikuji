@@ -114,18 +114,17 @@ export async function GET(req: NextRequest) {
               </div>
             </div>
 
-            {/* Full grade name below the circle */}
+            {/* Full grade name below the circle — each char in its own div to prevent Satori CJK wrap */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-              <div style={{
-                fontSize: gradeFontSize,
-                fontWeight: 700,
-                color,
-                letterSpacing: '0.12em',
-                lineHeight: 1,
-                display: 'flex',
-                whiteSpace: 'nowrap',
-              }}>
-                {grade}
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <div style={{ fontSize: gradeFontSize, fontWeight: 700, color, letterSpacing: '0.12em', lineHeight: 1, display: 'flex' }}>
+                  {grade.charAt(0)}
+                </div>
+                {grade.length > 1 && (
+                  <div style={{ fontSize: gradeFontSize, fontWeight: 700, color, letterSpacing: '0.12em', lineHeight: 1, display: 'flex' }}>
+                    {grade.charAt(1)}
+                  </div>
+                )}
               </div>
               <div style={{
                 fontSize: 18,
