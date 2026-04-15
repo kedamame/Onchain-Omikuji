@@ -201,12 +201,58 @@ function scoreWallet(stats: WalletStats): number {
   return Math.max(0, Math.min(100, score));
 }
 
-function gradeFromScore(score: number): FortuneGrade {
-  if (score >= 85) return '大吉';
-  if (score >= 70) return '吉';
-  if (score >= 55) return '中吉';
-  if (score >= 40) return '小吉';
-  if (score >= 25) return '末吉';
+/**
+ * Deterministic pseudo-random from a 32-bit seed.
+ * Returns a float in [0, 1).
+ */
+function seededRandom(seed: number): number {
+  let s = seed >>> 0;
+  s = Math.imul(s ^ (s >>> 16), 0x45d9f3b) >>> 0;
+  s = Math.imul(s ^ (s >>> 16), 0x45d9f3b) >>> 0;
+  s = (s ^ (s >>> 16)) >>> 0;
+  return s / 0x100000000;
+}
+
+function clamp(v: number, lo: number, hi: number): number {
+  return v < lo ? lo : v > hi ? hi : v;
+}
+
+/**
+ * Convert score (0–100) into probability weights for each grade.
+ *
+ * Each stat contributes to the score, and the score shifts the
+ * entire probability distribution — high scorers skew toward 大吉/吉,
+ * low scorers skew toward 凶/末吉.  There is always some chance of
+ * any outcome, preserving the spirit of real omikuji.
+ *
+ * Approximate probabilities at score extremes:
+ *
+ *  score=100  大吉 40%  吉 35%  中吉 15%  小吉 6%  末吉 3%  凶 1%
+ *  score=50   大吉  7%  吉 20%  中吉 28%  小吉 22%  末吉 14%  凶 9%
+ *  score=0    大吉  1%  吉  5%  中吉 10%  小吉 18%  末吉 28%  凶 38%
+ */
+function gradeWeights(score: number): Record<FortuneGrade, number> {
+  const t = clamp(score / 100, 0, 1); // normalise to [0,1]
+  return {
+    '大吉': clamp(0.01 + 0.39 * Math.pow(t, 1.6), 0.01, 0.40),
+    '吉':   clamp(0.05 + 0.30 * Math.pow(t, 0.9), 0.05, 0.35),
+    '中吉': clamp(0.10 + 0.18 * (1 - Math.abs(t - 0.55) * 1.8), 0.08, 0.28),
+    '小吉': clamp(0.18 - 0.12 * t, 0.06, 0.22),
+    '末吉': clamp(0.28 - 0.25 * t, 0.03, 0.28),
+    '凶':   clamp(0.38 - 0.37 * Math.pow(t, 0.7), 0.01, 0.38),
+  };
+}
+
+function gradeFromScore(score: number, seed: number): FortuneGrade {
+  const grades: FortuneGrade[] = ['大吉', '吉', '中吉', '小吉', '末吉', '凶'];
+  const weights = gradeWeights(score);
+  const total = grades.reduce((s, g) => s + weights[g], 0);
+  const roll = seededRandom(seed) * total;
+  let cum = 0;
+  for (const grade of grades) {
+    cum += weights[grade];
+    if (roll < cum) return grade;
+  }
   return '凶';
 }
 
@@ -223,11 +269,16 @@ function formatBalance(wei: bigint): string {
 
 export function calculateFortune(stats: WalletStats, address: string): FortuneResult {
   const score = scoreWallet(stats);
-  const grade = gradeFromScore(score);
-  const config = GRADE_CONFIG[grade];
 
-  // Use address as seed for message selection
-  const seed = parseInt(address.slice(2, 6), 16);
+  // Seed = address + today's date (JST) → same wallet changes result once per day
+  const today = new Date();
+  const jst = new Date(today.getTime() + 9 * 60 * 60 * 1000);
+  const dateKey = jst.getUTCFullYear() * 10000 + (jst.getUTCMonth() + 1) * 100 + jst.getUTCDate();
+  const addrPart = parseInt(address.slice(2, 10), 16);
+  const seed = (addrPart ^ (dateKey * 2654435761)) >>> 0;
+
+  const grade = gradeFromScore(score, seed);
+  const config = GRADE_CONFIG[grade];
 
   const headline = pick(HEADLINES[grade], seed);
   const body = pick(BODIES[grade], seed + 1);
