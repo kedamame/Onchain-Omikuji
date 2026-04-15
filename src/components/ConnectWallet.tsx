@@ -30,11 +30,11 @@ export function ConnectWallet({ isInMiniApp }: Props) {
 
       <div className="text-center space-y-2">
         <p className="font-mincho text-ink text-base leading-relaxed">
-          ウォレットを繋げて<br />
-          <span className="text-crimson font-bold">今日の運勢</span>を占う
+          Connect your wallet to reveal<br />
+          <span className="text-crimson font-bold">your fortune</span>
         </p>
         <p className="font-gothic text-ink/40 text-xs">
-          Baseチェーンの活動を分析します
+          We analyze your Base chain activity
         </p>
       </div>
 
@@ -56,10 +56,10 @@ export function ConnectWallet({ isInMiniApp }: Props) {
         {isPending ? (
           <span className="flex items-center justify-center gap-2">
             <span className="w-4 h-4 border-2 border-scroll border-t-transparent rounded-full animate-spin" />
-            接続中...
+            Connecting...
           </span>
         ) : (
-          '御籤を引く'
+          'Draw Your Omikuji'
         )}
         {/* Corner ornaments */}
         <span className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-scroll/60" />
@@ -69,7 +69,7 @@ export function ConnectWallet({ isInMiniApp }: Props) {
       </button>
 
       <p className="font-gothic text-ink/30 text-xs text-center">
-        署名のみ。トランザクションは不要です
+        Signature only. No transaction required.
       </p>
     </div>
   );

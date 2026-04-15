@@ -8,10 +8,10 @@ const miniAppEmbed = {
   version: '1',
   imageUrl: `${APP_URL}/opengraph-image`,
   button: {
-    title: '今日の運勢を占う',
+    title: 'Draw My Fortune',
     action: {
       type: 'launch_miniapp',
-      name: 'オンチェーン御籤',
+      name: 'Onchain Omikuji',
       url: APP_URL,
       splashImageUrl: `${APP_URL}/splash.png`,
       splashBackgroundColor: '#F5EDD8',
@@ -20,12 +20,12 @@ const miniAppEmbed = {
 };
 
 export const metadata: Metadata = {
-  title: 'オンチェーン御籤',
-  description: 'Baseチェーンの軌跡が、運命を語る。あなたのウォレット活動で今日の運勢を占います。',
+  title: 'Onchain Omikuji',
+  description: 'Your onchain history on Base reveals your fate. Draw your fortune now.',
   metadataBase: new URL(APP_URL),
   openGraph: {
-    title: 'オンチェーン御籤',
-    description: 'Baseチェーンの軌跡が、運命を語る',
+    title: 'Onchain Omikuji',
+    description: 'Your onchain history on Base reveals your fate',
     type: 'website',
     images: ['/og-image.png'],
   },
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="en">
       <body>
         <AppProvider>{children}</AppProvider>
       </body>

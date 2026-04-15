@@ -146,7 +146,7 @@ export async function GET() {
               letterSpacing: '0.05em',
             }}
           >
-            Baseチェーンの軌跡が、運命を語る
+            Your onchain history reveals your fate
           </div>
 
           {/* Gold divider */}

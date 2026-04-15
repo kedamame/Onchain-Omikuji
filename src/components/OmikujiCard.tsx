@@ -30,14 +30,14 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
       setPhase('revealing');
       setTimeout(() => setPhase('done'), 1400);
     } catch {
-      setError('データの取得に失敗しました。もう一度お試しください。');
+      setError('Failed to fetch data. Please try again.');
       setPhase('idle');
     }
   };
 
   const handleShare = () => {
     if (!fortune) return;
-    const text = `今日のオンチェーン運勢は「${fortune.grade}」でした！\n${fortune.headline}\n\n#オンチェーン御籤 #Base`;
+    const text = `My onchain fortune is "${fortune.grade}" (${fortune.gradeEn})!\n${fortune.headline}\n\n#OnchainOmikuji #Base`;
     shareToFarcaster(text, appUrl, isInMiniApp);
   };
 
@@ -67,7 +67,7 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
     <div className="flex flex-col items-center gap-6 w-full max-w-xs">
       {/* Address display */}
       <div className="w-full bg-paper-dark/60 border border-ink/10 rounded-sm px-4 py-2 text-center">
-        <p className="font-gothic text-ink/40 text-xs mb-0.5">接続中</p>
+        <p className="font-gothic text-ink/40 text-xs mb-0.5">Connected</p>
         <p className="font-gothic text-ink/70 text-sm font-mono">
           {address.slice(0, 6)}...{address.slice(-4)}
         </p>
@@ -80,7 +80,7 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
       {/* Draw button */}
       <div className="flex flex-col items-center gap-4 w-full">
         <p className="font-mincho text-ink/60 text-sm text-center">
-          準備ができたら御籤を引いてください
+          Ready? Draw your omikuji.
         </p>
         <button
           onClick={runFortune}
@@ -94,7 +94,7 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
             active:scale-95
           "
         >
-          御籤を引く
+          Draw Omikuji
           <span className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-scroll/60" />
           <span className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-scroll/60" />
           <span className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-scroll/60" />
@@ -106,7 +106,7 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
         onClick={onDisconnect}
         className="font-gothic text-ink/30 text-xs hover:text-ink/50 transition-colors"
       >
-        ウォレットを切断
+        Disconnect
       </button>
     </div>
   );
@@ -116,7 +116,7 @@ export function OmikujiCard({ address, isInMiniApp, onDisconnect }: Props) {
 function AnalyzingScreen() {
   const [dots, setDots] = useState('');
   useEffect(() => {
-    const id = setInterval(() => setDots((d) => (d.length >= 3 ? '' : d + '・')), 500);
+    const id = setInterval(() => setDots((d) => (d.length >= 3 ? '' : d + '.')), 500);
     return () => clearInterval(id);
   }, []);
 
@@ -147,10 +147,10 @@ function AnalyzingScreen() {
 
       <div className="text-center space-y-2">
         <p className="font-mincho text-ink text-lg">
-          運勢を占っています{dots}
+          Reading your fortune{dots}
         </p>
         <p className="font-gothic text-ink/40 text-xs">
-          Baseチェーンを解析中
+          Analyzing Base chain activity
         </p>
       </div>
 
@@ -193,7 +193,7 @@ function FortuneReveal({ fortune, phase, onShare, onReset, onDisconnect, address
           {/* Header */}
           <div className="text-center space-y-1">
             <p className="font-mincho text-ink/50 text-xs tracking-widest">
-              ─── 今日の運勢 ───
+              ─── Your Fortune ───
             </p>
             <p className="font-gothic text-ink/30 text-xs font-mono">
               {address.slice(0, 6)}...{address.slice(-4)}
@@ -309,7 +309,7 @@ function FortuneReveal({ fortune, phase, onShare, onReset, onDisconnect, address
               border border-crimson-dark/30
             "
           >
-            Farcasterでシェア
+            Share on Farcaster
             <span className="absolute top-1 left-1 w-1.5 h-1.5 border-t-2 border-l-2 border-scroll/60" />
             <span className="absolute top-1 right-1 w-1.5 h-1.5 border-t-2 border-r-2 border-scroll/60" />
             <span className="absolute bottom-1 left-1 w-1.5 h-1.5 border-b-2 border-l-2 border-scroll/60" />
@@ -324,13 +324,13 @@ function FortuneReveal({ fortune, phase, onShare, onReset, onDisconnect, address
               rounded-sm transition-all duration-200 border border-ink/10
             "
           >
-            もう一度引く
+            Draw Again
           </button>
           <button
             onClick={onDisconnect}
             className="font-gothic text-ink/30 text-xs hover:text-ink/50 transition-colors text-center"
           >
-            ウォレットを切断
+            Disconnect
           </button>
         </div>
       )}

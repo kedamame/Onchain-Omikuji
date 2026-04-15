@@ -31,55 +31,55 @@ const GRADE_CONFIG: Record<FortuneGrade, { gradeEn: string; color: string; bgCol
 
 const HEADLINES: Record<FortuneGrade, string[]> = {
   大吉: [
-    'オンチェーンの神が微笑む。大いなる運気がそなたに降り注ぐ。',
-    '活発なる魂よ。Baseの大地で、運命は燦然と輝く。',
+    'The onchain gods smile upon you. Great fortune descends.',
+    'Vibrant soul — on the land of Base, your fate shines brilliantly.',
   ],
   吉: [
-    '堅実なる歩みが、確かな幸運を招く。',
-    '丁寧に積み重ねたtxが、吉の道を照らす。',
+    'Steady steps invite certain luck.',
+    'Each transaction laid with care lights the path to good fortune.',
   ],
   中吉: [
-    '平穏なる運気。されど、一歩を踏み出せば光明が見えよう。',
-    '静かな波の中に、好機の芽が育つ。',
+    'A calm tide. Yet one bold step forward reveals the light.',
+    'In quiet waves, the seeds of opportunity are growing.',
   ],
   小吉: [
-    '小さな縁が、大きな縁へと繋がっていく。',
-    '萌芽の時。焦らず、丁寧に根を張ること。',
+    'Small connections lead to greater ones in time.',
+    'A season of sprouting. Lay your roots patiently.',
   ],
   末吉: [
-    '今は種まきの時。やがて大きな花が咲くであろう。',
-    '末広がりの運気。これより上昇の兆しあり。',
+    'Now is the time to sow. A great bloom awaits.',
+    'Fortune that broadens with time — the upward turn begins here.',
   ],
   凶: [
-    '嵐の前の静けさ。されど、転機は必ず訪れる。',
-    '今こそ内なる力を蓄えよ。次の波は必ず来たる。',
+    'The calm before the storm. Yet a turning point will surely come.',
+    'Gather your inner strength now. The next wave is on its way.',
   ],
 };
 
 const BODIES: Record<FortuneGrade, string[]> = {
   大吉: [
-    'あなたのオンチェーン活動は非常に活発です。多くのコントラクトと積極的に関わり、Baseの生態系に深く根ざしています。この勢いを保ち続けることで、さらなる発展が期待できます。',
-    'ウォレットに宿る活気が、強運を呼び込んでいます。継続的な活動と豊富な経験が、あなたを大吉へと導きました。',
+    'Your onchain activity is remarkably vibrant. Deeply engaged with many contracts, you are rooted in the Base ecosystem. Keep this momentum and further growth is all but certain.',
+    'The energy in your wallet calls in great luck. Consistent action and rich experience have guided you to the highest fortune.',
   ],
   吉: [
-    'バランスの取れたオンチェーン活動が、安定した運気をもたらしています。着実な積み重ねが、確かな幸運の礎となっています。',
-    '程よい活動量と実績が、吉の運気を引き寄せています。このペースを維持することが、さらなる発展に繋がるでしょう。',
+    'A well-balanced onchain presence brings stable fortune. Your steady accumulation is the foundation of genuine luck.',
+    'Moderate activity and a solid track record are drawing good fortune toward you. Maintain this pace for continued progress.',
   ],
   中吉: [
-    'まずまずのオンチェーン活動が見られます。さらに多様なコントラクトと関わることで、運気はより上昇するでしょう。',
-    '中程度の活動量が中吉を示しています。新しい挑戦を恐れず、積極的に動くことが吉と出るでしょう。',
+    'Modest onchain activity is visible. Engaging with a broader range of contracts will lift your fortune further.',
+    'A mid-range level of activity points to mild luck. Face new challenges without fear — bold moves will prove fortunate.',
   ],
   小吉: [
-    'オンチェーンの歩みは緩やかですが、着実に前進しています。焦らず、自分のペースで活動を続けることが大切です。',
-    'まだまだ成長の余地があります。新しいプロトコルや機能を試すことで、運気は上向いていくでしょう。',
+    'Your onchain journey is unhurried, yet steadily moving forward. Continue at your own pace — patience is your strength.',
+    'There is plenty of room to grow. Exploring new protocols and features will turn your fortune upward.',
   ],
   末吉: [
-    '活動が少なめですが、これからが本番です。末広がりの縁起を信じ、一歩ずつ前進することで運気は開けます。',
-    'ウォレットの眠りを覚ます時が来たようです。小さな一歩から始めることで、運命は動き出します。',
+    'Activity is light, but the real chapter is just beginning. Believe in the broadening fortune and advance one step at a time.',
+    'The time has come to wake your wallet. Starting with a single small action sets destiny in motion.',
   ],
   凶: [
-    'オンチェーン活動がほとんど見当たりません。しかし、全ての始まりは「凶」からとも言います。今こそ新しい一歩を踏み出す絶好の機会です。',
-    '現時点では難しい運気ですが、悲観することはありません。オンチェーンの世界に足を踏み入れることで、運命は大きく変わります。',
+    'Onchain activity is scarce. Yet every journey begins somewhere — now is the perfect moment to take your first step.',
+    'The current tide is challenging, but there is no need for despair. Entering the onchain world can change your fortune entirely.',
   ],
 };
 
@@ -162,41 +162,41 @@ export function calculateFortune(stats: WalletStats, address: string): FortuneRe
 
   const details: FortuneDetail[] = [
     {
-      label: '総取引数',
-      value: stats.txCount === 0 ? 'なし' : `${stats.txCount} tx`,
+      label: 'Total Txs',
+      value: stats.txCount === 0 ? 'None' : `${stats.txCount} tx`,
       icon: '⛩',
       good: stats.txCount > 10,
     },
     {
-      label: 'ウォレット歴',
-      value: stats.walletAgeDays === 0 ? '新規' : `${stats.walletAgeDays} 日`,
+      label: 'Wallet Age',
+      value: stats.walletAgeDays === 0 ? 'New' : `${stats.walletAgeDays} days`,
       icon: '🏮',
       good: stats.walletAgeDays > 30,
     },
     {
-      label: '最終取引',
+      label: 'Last Tx',
       value: stats.daysSinceLastTx >= 999
-        ? 'なし'
+        ? 'None'
         : stats.daysSinceLastTx === 0
-        ? '本日'
-        : `${stats.daysSinceLastTx} 日前`,
+        ? 'Today'
+        : `${stats.daysSinceLastTx}d ago`,
       icon: '🌊',
       good: stats.daysSinceLastTx <= 7,
     },
     {
-      label: '使用コントラクト',
-      value: `${stats.uniqueContracts} 種`,
+      label: 'Contracts Used',
+      value: `${stats.uniqueContracts}`,
       icon: '🎋',
       good: stats.uniqueContracts >= 5,
     },
     {
-      label: 'ETH残高',
+      label: 'ETH Balance',
       value: formatBalance(stats.ethBalance),
       icon: '⛩',
       good: stats.ethBalance > 10000000000000000n,
     },
     {
-      label: '成功率',
+      label: 'Success Rate',
       value: stats.txCount === 0 ? '—' : `${Math.round((1 - stats.errorRate) * 100)}%`,
       icon: '🎑',
       good: stats.errorRate < 0.1,

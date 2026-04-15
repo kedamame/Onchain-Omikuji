@@ -107,10 +107,10 @@ export async function GET() {
             </div>
             <div style={{ width: 240, height: 3, background: '#D4A017', margin: '16px 0', opacity: 0.7 }} />
             <div style={{ fontSize: 26, color: 'rgba(26,20,52,0.6)', lineHeight: 1.5 }}>
-              Baseチェーンの軌跡が、
+              Your onchain history
             </div>
             <div style={{ fontSize: 26, color: 'rgba(26,20,52,0.6)' }}>
-              運命を語る
+              reveals your fate
             </div>
           </div>
         </div>

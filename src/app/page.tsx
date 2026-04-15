@@ -15,7 +15,7 @@ export default function Home() {
       <main className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-8 h-8 rounded-full border-2 border-crimson border-t-transparent animate-spin" />
-          <p className="font-mincho text-ink/40 text-sm">読み込み中...</p>
+          <p className="font-mincho text-ink/40 text-sm">Loading...</p>
         </div>
       </main>
     );
@@ -45,7 +45,7 @@ export default function Home() {
           </h1>
 
           <p className="font-mincho text-ink/50 text-xs mt-2 tracking-wide">
-            Baseチェーンの軌跡が、運命を語る
+            Your onchain history reveals your fate
           </p>
 
           {/* Bottom ornament */}
