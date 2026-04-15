@@ -27,14 +27,16 @@ export async function GET(req: NextRequest) {
   const grade    = searchParams.get('grade')    || '吉';
   const gradeEn  = searchParams.get('gradeEn')  || 'GOOD LUCK';
   const headline = searchParams.get('headline') || '';
+  const body     = searchParams.get('body')     || '';
   const color    = GRADE_COLORS[grade] ?? '#C8102E';
   const sealBg   = GRADE_BG[grade]    ?? '#FFF5F5';
 
   // Font size inside circle: 1 char = 150px, 2 chars = 100px each (stacked vertically)
   const circleFontSize = grade.length === 1 ? 150 : 100;
 
-  // Truncate headline to ~60 chars to avoid overflow
-  const shortHeadline = headline.length > 62 ? `${headline.slice(0, 60)}...` : headline;
+  // Truncate headline to ~50 chars, body to ~80 chars
+  const shortHeadline = headline.length > 52 ? `${headline.slice(0, 50)}...` : headline;
+  const shortBody     = body.length     > 82 ? `${body.slice(0, 80)}...`     : body;
 
   return new ImageResponse(
     (
@@ -145,7 +147,7 @@ export async function GET(req: NextRequest) {
 
             {/* 御籤 */}
             <div style={{
-              fontSize: 78,
+              fontSize: 56,
               fontWeight: 700,
               color: '#1A1434',
               letterSpacing: '0.12em',
@@ -158,21 +160,22 @@ export async function GET(req: NextRequest) {
 
             {/* Gold divider */}
             <div style={{
-              width: 200,
+              width: 160,
               height: 3,
               background: '#D4A017',
               opacity: 0.65,
-              marginTop: 18,
-              marginBottom: 22,
+              marginTop: 12,
+              marginBottom: 16,
               display: 'flex',
             }} />
 
-            {/* Headline — single line, truncated */}
+            {/* Headline */}
             {shortHeadline ? (
               <div style={{
-                fontSize: 26,
-                color: 'rgba(26,20,52,0.68)',
-                lineHeight: 1.5,
+                fontSize: 22,
+                fontWeight: 700,
+                color: 'rgba(26,20,52,0.80)',
+                lineHeight: 1.4,
                 display: 'flex',
                 maxWidth: 520,
               }}>
@@ -180,12 +183,26 @@ export async function GET(req: NextRequest) {
               </div>
             ) : null}
 
+            {/* Body text */}
+            {shortBody ? (
+              <div style={{
+                fontSize: 18,
+                color: 'rgba(26,20,52,0.60)',
+                lineHeight: 1.5,
+                marginTop: 10,
+                display: 'flex',
+                maxWidth: 520,
+              }}>
+                {shortBody}
+              </div>
+            ) : null}
+
             {/* Sub caption */}
             <div style={{
-              fontSize: 18,
-              color: 'rgba(26,20,52,0.32)',
+              fontSize: 16,
+              color: 'rgba(26,20,52,0.28)',
               letterSpacing: '0.04em',
-              marginTop: shortHeadline ? 18 : 0,
+              marginTop: 14,
               display: 'flex',
             }}>
               Draw your fortune from the Base chain
