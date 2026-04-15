@@ -13,7 +13,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const gradeEn  = searchParams.gradeEn  || 'GOOD LUCK';
   const headline = searchParams.headline || '';
 
-  const ogImage = `${APP_URL}/og-result?grade=${encodeURIComponent(grade)}&gradeEn=${encodeURIComponent(gradeEn)}&headline=${encodeURIComponent(headline)}`;
+  const ogImage = `${APP_URL}/og-result?grade=${encodeURIComponent(grade)}&gradeEn=${encodeURIComponent(gradeEn)}&headline=${encodeURIComponent(headline)}&v=4`;
 
   const title       = `${grade} (${gradeEn}) — Onchain Omikuji`;
   const description = headline || `My Base chain fortune is ${grade}! Draw yours on Onchain Omikuji.`;

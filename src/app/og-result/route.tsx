@@ -90,6 +90,7 @@ export async function GET(req: NextRequest) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
+                overflow: 'hidden',
               }}
             >
               {/* Inner dashed ring */}
