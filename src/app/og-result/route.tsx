@@ -14,7 +14,7 @@ const GRADE_COLORS: Record<string, string> = {
 };
 
 const GRADE_BG: Record<string, string> = {
-  '大吉': '#FFF5F5',
+  '大吉': '#FFF0F0',
   '吉':   '#FFFBF0',
   '中吉': '#F0FAF5',
   '小吉': '#F0F7FF',
@@ -24,11 +24,19 @@ const GRADE_BG: Record<string, string> = {
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const grade   = searchParams.get('grade')   || '吉';
-  const gradeEn = searchParams.get('gradeEn') || 'GOOD LUCK';
+  const grade    = searchParams.get('grade')    || '吉';
+  const gradeEn  = searchParams.get('gradeEn')  || 'GOOD LUCK';
   const headline = searchParams.get('headline') || '';
-  const color = GRADE_COLORS[grade] ?? '#C8102E';
-  const bg    = GRADE_BG[grade]    ?? '#FFF5F5';
+  const color    = GRADE_COLORS[grade] ?? '#C8102E';
+  const sealBg   = GRADE_BG[grade]    ?? '#FFF5F5';
+
+  // Show only first character large inside the circle; full grade below
+  const firstChar = grade.charAt(0);
+  // Font size for full grade name (1 char = 56px, 2 chars = 52px)
+  const gradeFontSize = grade.length === 1 ? 56 : 52;
+
+  // Truncate headline to ~60 chars to avoid overflow
+  const shortHeadline = headline.length > 62 ? `${headline.slice(0, 60)}...` : headline;
 
   return new ImageResponse(
     (
@@ -44,77 +52,150 @@ export async function GET(req: NextRequest) {
           position: 'relative',
         }}
       >
-        {/* Top/bottom borders */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 10, background: color, display: 'flex' }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 10, background: color, display: 'flex' }} />
+        {/* Top / bottom accent bars */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 12, background: color, display: 'flex' }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 12, background: color, display: 'flex' }} />
 
-        {/* Left wave accent */}
-        <div style={{ position: 'absolute', top: 10, left: 0, bottom: 10, width: 60, background: `${color}10`, display: 'flex' }} />
-        {/* Right wave accent */}
-        <div style={{ position: 'absolute', top: 10, right: 0, bottom: 10, width: 60, background: `${color}10`, display: 'flex' }} />
+        {/* Side accent panels */}
+        <div style={{ position: 'absolute', top: 12, bottom: 12, left: 0, width: 56, background: `${color}12`, display: 'flex' }} />
+        <div style={{ position: 'absolute', top: 12, bottom: 12, right: 0, width: 56, background: `${color}12`, display: 'flex' }} />
 
         {/* Corner seals */}
-        <div style={{ position: 'absolute', top: 36, left: 88, width: 56, height: 56, borderRadius: '50%', border: `3px solid ${color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
-          <div style={{ fontSize: 26, color, fontWeight: 700, display: 'flex' }}>縁</div>
+        <div style={{ position: 'absolute', top: 32, left: 80, width: 52, height: 52, borderRadius: '50%', border: `2px solid ${color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ fontSize: 24, color, fontWeight: 700, opacity: 0.45, display: 'flex' }}>縁</div>
         </div>
-        <div style={{ position: 'absolute', top: 36, right: 88, width: 56, height: 56, borderRadius: '50%', border: `3px solid ${color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
-          <div style={{ fontSize: 26, color, fontWeight: 700, display: 'flex' }}>運</div>
+        <div style={{ position: 'absolute', top: 32, right: 80, width: 52, height: 52, borderRadius: '50%', border: `2px solid ${color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ fontSize: 24, color, fontWeight: 700, opacity: 0.45, display: 'flex' }}>運</div>
         </div>
-        <div style={{ position: 'absolute', bottom: 36, left: 88, width: 56, height: 56, borderRadius: '50%', border: `3px solid ${color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
-          <div style={{ fontSize: 26, color, fontWeight: 700, display: 'flex' }}>福</div>
+        <div style={{ position: 'absolute', bottom: 32, left: 80, width: 52, height: 52, borderRadius: '50%', border: `2px solid ${color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ fontSize: 24, color, fontWeight: 700, opacity: 0.45, display: 'flex' }}>福</div>
         </div>
-        <div style={{ position: 'absolute', bottom: 36, right: 88, width: 56, height: 56, borderRadius: '50%', border: `3px solid ${color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5 }}>
-          <div style={{ fontSize: 26, color, fontWeight: 700, display: 'flex' }}>吉</div>
+        <div style={{ position: 'absolute', bottom: 32, right: 80, width: 52, height: 52, borderRadius: '50%', border: `2px solid ${color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ fontSize: 24, color, fontWeight: 700, opacity: 0.45, display: 'flex' }}>吉</div>
         </div>
 
-        {/* Main content: seal + text */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 80 }}>
-          {/* Grade seal */}
-          <div
-            style={{
-              width: 280,
-              height: 280,
-              borderRadius: '50%',
-              border: `14px solid ${color}`,
-              background: bg,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              position: 'relative',
-            }}
-          >
-            {/* Inner dashed ring */}
-            <div style={{ position: 'absolute', inset: 10, borderRadius: '50%', border: `3px dashed ${color}40`, display: 'flex' }} />
-            <div style={{ fontSize: 130, fontWeight: 700, color, lineHeight: 1, display: 'flex' }}>
-              {grade}
+        {/* ── Main content: left seal + right text ── */}
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 72 }}>
+
+          {/* Left: grade seal block */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+            {/* Circle seal */}
+            <div
+              style={{
+                width: 260,
+                height: 260,
+                borderRadius: '50%',
+                border: `12px solid ${color}`,
+                background: sealBg,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+              }}
+            >
+              {/* Inner dashed ring */}
+              <div style={{
+                position: 'absolute',
+                top: 12, left: 12, right: 12, bottom: 12,
+                borderRadius: '50%',
+                border: `2px dashed ${color}35`,
+                display: 'flex',
+              }} />
+              {/* First character — always 1 char, never wraps */}
+              <div style={{
+                fontSize: 128,
+                fontWeight: 700,
+                color,
+                lineHeight: 1,
+                display: 'flex',
+              }}>
+                {firstChar}
+              </div>
             </div>
-            <div style={{ fontSize: 22, color, letterSpacing: '0.15em', opacity: 0.8, display: 'flex' }}>
-              {gradeEn}
+
+            {/* Full grade name below the circle */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+              <div style={{
+                fontSize: gradeFontSize,
+                fontWeight: 700,
+                color,
+                letterSpacing: '0.12em',
+                lineHeight: 1,
+                display: 'flex',
+              }}>
+                {grade}
+              </div>
+              <div style={{
+                fontSize: 18,
+                color,
+                letterSpacing: '0.22em',
+                opacity: 0.75,
+                display: 'flex',
+                whiteSpace: 'nowrap',
+              }}>
+                {gradeEn}
+              </div>
             </div>
           </div>
 
-          {/* Text block */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 580 }}>
-            {/* Branding */}
-            <div style={{ fontSize: 20, color: 'rgba(26,20,52,0.4)', letterSpacing: '0.3em', display: 'flex' }}>
+          {/* Right: text block */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, maxWidth: 540 }}>
+            {/* App label */}
+            <div style={{
+              fontSize: 18,
+              color: 'rgba(26,20,52,0.38)',
+              letterSpacing: '0.32em',
+              display: 'flex',
+            }}>
               ONCHAIN OMIKUJI
             </div>
+
             {/* 御籤 */}
-            <div style={{ fontSize: 72, fontWeight: 700, color: '#1A1434', letterSpacing: '0.15em', lineHeight: 1.1, display: 'flex' }}>
+            <div style={{
+              fontSize: 78,
+              fontWeight: 700,
+              color: '#1A1434',
+              letterSpacing: '0.12em',
+              lineHeight: 1.05,
+              marginTop: 6,
+              display: 'flex',
+            }}>
               御籤
             </div>
+
             {/* Gold divider */}
-            <div style={{ width: 220, height: 3, background: '#D4A017', opacity: 0.7, marginTop: 16, marginBottom: 24, display: 'flex' }} />
-            {/* Headline */}
-            {headline ? (
-              <div style={{ fontSize: 28, color: 'rgba(26,20,52,0.7)', lineHeight: 1.5, display: 'flex', flexWrap: 'wrap' }}>
-                {headline}
+            <div style={{
+              width: 200,
+              height: 3,
+              background: '#D4A017',
+              opacity: 0.65,
+              marginTop: 18,
+              marginBottom: 22,
+              display: 'flex',
+            }} />
+
+            {/* Headline — single line, truncated */}
+            {shortHeadline ? (
+              <div style={{
+                fontSize: 26,
+                color: 'rgba(26,20,52,0.68)',
+                lineHeight: 1.5,
+                display: 'flex',
+                maxWidth: 520,
+              }}>
+                {shortHeadline}
               </div>
             ) : null}
-            {/* Sub label */}
-            <div style={{ fontSize: 20, color: 'rgba(26,20,52,0.35)', marginTop: 20, letterSpacing: '0.05em', display: 'flex' }}>
+
+            {/* Sub caption */}
+            <div style={{
+              fontSize: 18,
+              color: 'rgba(26,20,52,0.32)',
+              letterSpacing: '0.04em',
+              marginTop: shortHeadline ? 18 : 0,
+              display: 'flex',
+            }}>
               Draw your fortune from the Base chain
             </div>
           </div>
