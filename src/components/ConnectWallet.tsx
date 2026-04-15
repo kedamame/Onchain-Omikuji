@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useConnect, type Connector } from 'wagmi';
 
 interface Props {
@@ -7,11 +8,21 @@ interface Props {
 }
 
 export function ConnectWallet({ isInMiniApp }: Props) {
-  const { connect, connectors, isPending, variables } = useConnect();
+  const { connect, connectors, isPending, error, variables } = useConnect();
 
-  // In Farcaster miniapp: auto-connect silently
+  // In Farcaster miniapp: auto-connect on mount
+  const fc = connectors.find(
+    (c) => c.id === 'farcasterMiniApp' || c.name === 'Farcaster'
+  );
+
+  useEffect(() => {
+    if (isInMiniApp && fc && !isPending) {
+      connect({ connector: fc });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isInMiniApp, fc?.id]);
+
   if (isInMiniApp) {
-    const fc = connectors.find((c) => c.id === 'farcasterMiniApp');
     return (
       <div className="flex flex-col items-center gap-6 w-full max-w-xs">
         <div className="flex gap-8 mb-2">
@@ -28,8 +39,13 @@ export function ConnectWallet({ isInMiniApp }: Props) {
             We analyze your Base chain activity
           </p>
         </div>
+        {error && (
+          <p className="font-gothic text-crimson text-xs text-center px-2">
+            {error.message}
+          </p>
+        )}
         <PrimaryButton
-          onClick={() => fc && connect({ connector: fc })}
+          onClick={() => fc ? connect({ connector: fc }) : undefined}
           isPending={isPending}
           label="Draw Your Omikuji"
         />
